@@ -32,7 +32,7 @@ const UserDetails = () => {
                             </Link>
                             <button onClick={refreshUsers} className="py-2 px-4 border rounded-md hover:scale-110 transition">Refresh</button>
                         </div>
-                        <h1 className="text-4xl font-extrabold mb-6">{user.name}</h1>
+                        <h1 className="text-[3rem] font-extrabold mb-6">{user.name}</h1>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="mb-8">
                                 <p className="text-gray-600 font-medium">Username</p>
