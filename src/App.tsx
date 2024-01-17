@@ -1,14 +1,12 @@
-import { useFetchAllUsersQuery } from "./services/users";
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import UserDetails from './pages/UserDetails';
 
 export default function App() {
-
-  const { data: users, isLoading } = useFetchAllUsersQuery("");
-
-  console.log(users)
-
   return (
-    <h1 className="text-3xl text-blue-500 underline">
-      Hello world!
-    </h1>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/user/:userId" element={<UserDetails />} />
+    </Routes>
+  );
 }
