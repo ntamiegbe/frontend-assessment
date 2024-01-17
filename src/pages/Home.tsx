@@ -1,29 +1,29 @@
-import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useFetchAllUsersQuery } from "../services/users";
 import { Link } from "react-router-dom";
 import { User } from "../../types/users";
 
-const UserList: React.FC<{ users: User[]; handleUserClick: (userId: number) => void }> = ({ users, handleUserClick }) => (
+const UserList: React.FC<{ users: User[]; }> = ({ users }) => (
     <div className="md:hidden rounded border border-slate-200">
         {users.map((user: User) => (
-            <div key={user.id} className="mb-2 w-full rounded-md bg-white p-4">
-                <div className="flex items-center justify-between border-b pb-4">
-                    <div>
-                        <div className="mb-2 flex items-center">
-                            <Link to={`/user/${user.id}`} onClick={() => handleUserClick(user.id)}>
+            <div key={user.id} className="mb-2 w-full rounded-md bg-white p-4 hover:bg-slate-200 border-b">
+                <Link to={`/user/${user.id}`}>
+                    <div className="flex items-center justify-between pb-4">
+                        <div className="">
+                            <div className="mb-2 flex items-center">
+
                                 <p>{user.name}</p>
-                            </Link>
+                            </div>
+                            <p className="text-sm text-gray-500">{user.email}</p>
                         </div>
-                        <p className="text-sm text-gray-500">{user.email}</p>
                     </div>
-                </div>
+                </Link>
             </div>
         ))}
-    </div>
+    </div >
 );
 
-const UserTable: React.FC<{ users: User[]; handleUserClick: (userId: number) => void }> = ({ users, handleUserClick }) => (
+const UserTable: React.FC<{ users: User[]; }> = ({ users }) => (
     <table className="hidden min-w-full text-gray-900 md:table rounded border border-slate-200">
         <thead className="rounded-lg text-left text-md font-normal bg-slate-200">
             <tr>
@@ -41,8 +41,8 @@ const UserTable: React.FC<{ users: User[]; handleUserClick: (userId: number) => 
                     key={user.id}
                     className="w-full border-b py-3 text-base last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
-                    <td className="whitespace-nowrap px-3 py-3">
-                        <Link to={`/user/${user.id}`} onClick={() => handleUserClick(user.id)}>
+                    <td className="whitespace-nowrap px-3 py-3 hover:bg-slate-200">
+                        <Link to={`/user/${user.id}`}>
                             <p>{user.name}</p>
                         </Link>
                     </td>
@@ -55,11 +55,6 @@ const UserTable: React.FC<{ users: User[]; handleUserClick: (userId: number) => 
 
 export default function Home() {
     const { data: users, isLoading } = useFetchAllUsersQuery("");
-    const [selectedUserId, setSelectedUserId] = useState(0);
-
-    const handleUserClick = (userId: number) => {
-        setSelectedUserId(userId);
-    };
 
     return (
         <div className="mt-20 flow-root p-10">
@@ -73,8 +68,8 @@ export default function Home() {
 
             <div className="inline-block min-w-full align-middle">
                 <div className="rounded-lg bg-gray-10 p-2 md:pt-0">
-                    <UserList users={users || []} handleUserClick={handleUserClick} />
-                    <UserTable users={users || []} handleUserClick={handleUserClick} />
+                    <UserList users={users || []} />
+                    <UserTable users={users || []} />
                 </div>
             </div>
         </div>
