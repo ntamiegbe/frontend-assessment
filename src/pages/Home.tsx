@@ -54,17 +54,24 @@ const UserTable: React.FC<{ users: User[]; }> = ({ users }) => (
 );
 
 export default function Home() {
-    const { data: users, isLoading } = useFetchAllUsersQuery("");
+    const { data: users, isLoading, refetch, isFetching } = useFetchAllUsersQuery("");
+
+    const refreshUsers = () => {
+        refetch();
+    };
 
     return (
-        <div className="mt-20 flow-root p-10">
-            {isLoading && (
-                <div className="h-screen flex items-center justify-center">
+        <div className="p-10 h-screen">
+            {isLoading || isFetching && (
+                <div className="flex items-center justify-center">
                     <LoadingSpinner loading={isLoading} size={30} text="Fetching all users" />
                 </div>
             )}
 
-            <h3 className="text-lg lg:text-2xl font-semibold text-center mb-5">ALL USERS</h3>
+            <div className="flex items-center justify-between p-2 mb-5">
+                <h3 className="text-lg lg:text-2xl font-semibold text-center">ALL USERS</h3>
+                <button onClick={refreshUsers} className="py-2 px-4 border rounded-md hover:scale-110 transition">Refresh Users</button>
+            </div>
 
             <div className="inline-block min-w-full align-middle">
                 <div className="rounded-lg bg-gray-10 p-2 md:pt-0">

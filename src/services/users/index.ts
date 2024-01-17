@@ -10,17 +10,18 @@ export const users = createApi({
     tagTypes: ["Users"],
     baseQuery: fetchBaseQuery({ baseUrl: "https://jsonplaceholder.typicode.com" }),
     endpoints: (builder) => ({
-        fetchAllUsers: builder.query<
-            GetAllUsersResponse,
-            ""
-        >({
-            query: () =>
-                getRequest("/users"),
-            providesTags: ["Users"],
+        fetchAllUsers: builder.query<GetAllUsersResponse, "">({
+            query: () => getRequest("/users"),
+            providesTags: ["Users"]
+        }),
+        fetchUserById: builder.query<GetAllUsersResponse, number>({
+            query: (id) => getRequest(`/users/${id}`),
+            providesTags: ["Users"]
         }),
     }),
 });
 
 export const {
     useFetchAllUsersQuery,
+    useFetchUserByIdQuery
 } = users;
