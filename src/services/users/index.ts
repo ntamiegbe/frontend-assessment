@@ -1,4 +1,4 @@
-import { GetAllUsersResponse } from './../../../types/users/index';
+import { GetAllUsersResponse, User } from './../../../types/users/index';
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const getRequest = (url: string) => ({
@@ -14,7 +14,7 @@ export const users = createApi({
             query: () => getRequest("/users"),
             providesTags: ["Users"]
         }),
-        fetchUserById: builder.query<GetAllUsersResponse, number>({
+        fetchUserById: builder.query<User, number>({
             query: (id) => getRequest(`/users/${id}`),
             providesTags: ["Users"]
         }),
