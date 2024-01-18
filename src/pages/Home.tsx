@@ -62,23 +62,26 @@ export default function Home() {
 
     return (
         <div className="p-10 h-screen">
-            {isLoading || isFetching && (
-                <div className="flex items-center justify-center">
+            {isLoading || isFetching ? (
+                <div className="flex items-center justify-center h-screen">
                     <LoadingSpinner loading={isLoading} size={30} text="Fetching all users" />
                 </div>
+            ) : (
+                <>
+                    <div className="flex items-center justify-between p-2 mb-5">
+                        <h3 className="text-lg lg:text-2xl font-semibold text-center">ALL USERS</h3>
+                        <button onClick={refreshUsers} className="py-2 px-4 border rounded-md hover:scale-110 transition">Refresh Users</button>
+                    </div>
+
+                    <div className="inline-block min-w-full align-middle">
+                        <div className="rounded-lg bg-gray-10 p-2 md:pt-0">
+                            <UserList users={users || []} />
+                            <UserTable users={users || []} />
+                        </div>
+                    </div>
+                </>
             )}
 
-            <div className="flex items-center justify-between p-2 mb-5">
-                <h3 className="text-lg lg:text-2xl font-semibold text-center">ALL USERS</h3>
-                <button onClick={refreshUsers} className="py-2 px-4 border rounded-md hover:scale-110 transition">Refresh Users</button>
-            </div>
-
-            <div className="inline-block min-w-full align-middle">
-                <div className="rounded-lg bg-gray-10 p-2 md:pt-0">
-                    <UserList users={users || []} />
-                    <UserTable users={users || []} />
-                </div>
-            </div>
         </div>
     );
 }

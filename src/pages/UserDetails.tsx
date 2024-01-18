@@ -21,7 +21,7 @@ const UserDetails = () => {
         <div className="h-screen">
             {isLoading || isFetching ? (
                 <div className="flex items-center justify-center">
-                    <LoadingSpinner loading={isLoading} size={30} text="Fetching all users" />
+                    <LoadingSpinner loading={isLoading} size={30} text="Fetching User Details" />
                 </div>
             ) : (
                 user && (
